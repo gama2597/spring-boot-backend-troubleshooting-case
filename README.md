@@ -2,6 +2,8 @@
 
 Technical case study demonstrating how a missing transaction boundary in a Spring Boot application can leave partially persisted data after a business operation fails.
 
+![Case Overview](assets/01_case_overview.png)
+
 ## Problem
 
 The application creates an order and then reserves inventory.
@@ -45,6 +47,8 @@ PRODUCT_ID   AVAILABLE_STOCK
 
 The request failed, but the database was left in a partial state.
 
+![Bug Reproduction](assets/02_bug_reproduction.png)
+
 ## Root Cause
 
 `OrderServiceImpl.createOrder()` did not define a transaction boundary around the complete business operation.
@@ -63,6 +67,8 @@ public OrderEntity createOrder(CreateOrderRequest request) {
 ```
 
 This ensures the complete operation is atomic.
+
+![Root Cause and Transaction Boundary Fix](assets/03_root_cause_and_fix.png)
 
 ## Validation
 
@@ -118,6 +124,8 @@ PRODUCT_ID   AVAILABLE_STOCK
 ```
 
 Both changes are committed successfully.
+
+![Validated Rollback and Commit Result](assets/04_validated_result.png)
 
 ## Integration Tests
 
