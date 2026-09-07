@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         order = orderRepository.saveAndFlush(order);
 
         log.info(
-                "Order persisted. orderId={}, productId={}, quantity={}",
+                "Order flushed within transaction. orderId={}, productId={}, quantity={}",
                 order.getId(),
                 order.getProductId(),
                 order.getQuantity()
