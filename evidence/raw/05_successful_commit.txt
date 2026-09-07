@@ -1,0 +1,36 @@
+SUCCESSFUL COMMIT VALIDATION
+============================
+
+Version: v2-fixed
+Commit: 2e9e894
+
+Request:
+POST http://localhost:8082/api/orders
+
+Body:
+{
+  "productId": 1001,
+  "quantity": 2
+}
+
+HTTP RESPONSE
+-------------
+HTTP/1.1 201 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 07 Sep 2026 03:49:34 GMT
+
+{"productId":1001,"quantity":2,"status":"CREATED","id":15}
+
+DATABASE STATE AFTER SUCCESSFUL REQUEST
+---------------------------------------
+APP_ORDER
+
+	ID PRODUCT_ID	QUANTITY STATUS
+---------- ---------- ---------- --------------------
+	15	 1001	       2 CREATED
+INVENTORY
+
+PRODUCT_ID AVAILABLE_STOCK
+---------- ---------------
+      1001		 3

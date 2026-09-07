@@ -1,0 +1,36 @@
+BUG REPRODUCTION
+================
+
+Version: v1-bug-reproduction
+Commit: 5802d96
+
+Request:
+POST http://localhost:8081/api/orders
+
+Body:
+{
+  "productId": 1001,
+  "quantity": 10
+}
+
+HTTP RESPONSE
+-------------
+HTTP/1.1 409 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 07 Sep 2026 03:45:08 GMT
+
+{"message":"Insufficient stock for product 1001. Requested: 10, available: 5","code":"INSUFFICIENT_STOCK"}
+
+DATABASE STATE AFTER FAILED REQUEST
+-----------------------------------
+APP_ORDER
+
+	ID PRODUCT_ID	QUANTITY STATUS
+---------- ---------- ---------- --------------------
+	13	 1001	      10 CREATED
+INVENTORY
+
+PRODUCT_ID AVAILABLE_STOCK
+---------- ---------------
+      1001		 5

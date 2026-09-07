@@ -1,0 +1,29 @@
+﻿diff --git a/src/main/java/com/gabrielmacavilca/troubleshooting/service/impl/OrderServiceImpl.java b/src/main/java/com/gabrielmacavilca/troubleshooting/service/impl/OrderServiceImpl.java
+index ca56f6c..226e3b7 100644
+--- a/src/main/java/com/gabrielmacavilca/troubleshooting/service/impl/OrderServiceImpl.java
++++ b/src/main/java/com/gabrielmacavilca/troubleshooting/service/impl/OrderServiceImpl.java
+@@ -8,6 +8,7 @@ import com.gabrielmacavilca.troubleshooting.service.OrderService;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.stereotype.Service;
++import org.springframework.transaction.annotation.Transactional;
+ 
+ @Service
+ public class OrderServiceImpl implements OrderService {
+@@ -26,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
+     }
+ 
+     @Override
++    @Transactional
+     public OrderEntity createOrder(CreateOrderRequest request) {
+         OrderEntity order = new OrderEntity(
+                 request.productId(),
+@@ -36,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
+         order = orderRepository.saveAndFlush(order);
+ 
+         log.info(
+-                "Order persisted. orderId={}, productId={}, quantity={}",
++                "Order flushed within transaction. orderId={}, productId={}, quantity={}",
+                 order.getId(),
+                 order.getProductId(),
+                 order.getQuantity()

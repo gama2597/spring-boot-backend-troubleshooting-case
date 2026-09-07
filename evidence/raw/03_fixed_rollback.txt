@@ -1,0 +1,32 @@
+FIXED ROLLBACK VALIDATION
+=========================
+
+Version: v2-fixed
+Commit: 2e9e894
+
+Request:
+POST http://localhost:8082/api/orders
+
+Body:
+{
+  "productId": 1001,
+  "quantity": 10
+}
+
+HTTP RESPONSE
+-------------
+HTTP/1.1 409 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 07 Sep 2026 03:48:34 GMT
+
+{"message":"Insufficient stock for product 1001. Requested: 10, available: 5","code":"INSUFFICIENT_STOCK"}
+
+DATABASE STATE AFTER FAILED REQUEST
+-----------------------------------
+APP_ORDER
+INVENTORY
+
+PRODUCT_ID AVAILABLE_STOCK
+---------- ---------------
+      1001		 5
